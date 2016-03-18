@@ -5,6 +5,8 @@ NB: the python package tifffile (Gohlke) needs to be installed.
 
 author: Nicola Gritti
 last edited: June 2015
+
+BLABLABLA
 """
 
 import sys
