@@ -61,23 +61,24 @@ def downsizeStack( stack, scaleFactor ):
 def crop_image( imgs, c, size ):
 
     # print(imgs.shape, c,size)
+    dim = imgs.shape
 
     if len(imgs.shape) == 3:
         cropstack = np.zeros( ( imgs.shape[0], size, size ) )
 
         cropstack[ : , 
-                    -np.min( [ c[1]-size/2, 0 ] ) : size-np.max( [ c[1]+size/2-2047, 0 ] ) , 
-                    -np.min( [ c[0]-size/2, 0 ] ) : size-np.max( [ c[0]+size/2-2047, 0 ] ) ] = imgs[ :,
-                    np.max( [ c[1]-size/2, 0 ] ) : np.min( [ c[1]+size/2, 2047 ] ) , 
-                    np.max( [ c[0]-size/2, 0 ] ) : np.min( [ c[0]+size/2, 2047 ] ) ]
+                    -np.min( [ c[1]-size/2, 0 ] ) : size-np.max( [ c[1]+size/2-dim[1]+1, 0 ] ) , 
+                    -np.min( [ c[0]-size/2, 0 ] ) : size-np.max( [ c[0]+size/2-dim[2]+1, 0 ] ) ] = imgs[ :,
+                    np.max( [ c[1]-size/2, 0 ] ) : np.min( [ c[1]+size/2, dim[1]-1 ] ) , 
+                    np.max( [ c[0]-size/2, 0 ] ) : np.min( [ c[0]+size/2, dim[2]-1 ] ) ]
     if len(imgs.shape) == 2:
         cropstack = np.zeros( ( size, size ) )
 
         cropstack[
-                    -np.min( [ c[1]-size/2, 0 ] ) : size-np.max( [ c[1]+size/2-2047, 0 ] ) , 
-                    -np.min( [ c[0]-size/2, 0 ] ) : size-np.max( [ c[0]+size/2-2047, 0 ] ) ] = imgs[
-                    np.max( [ c[1]-size/2, 0 ] ) : np.min( [ c[1]+size/2, 2047 ] ) , 
-                    np.max( [ c[0]-size/2, 0 ] ) : np.min( [ c[0]+size/2, 2047 ] ) ]
+                    -np.min( [ c[1]-size/2, 0 ] ) : size-np.max( [ c[1]+size/2-dim[1]+1, 0 ] ) , 
+                    -np.min( [ c[0]-size/2, 0 ] ) : size-np.max( [ c[0]+size/2-dim[2]+1, 0 ] ) ] = imgs[
+                    np.max( [ c[1]-size/2, 0 ] ) : np.min( [ c[1]+size/2, dim[1]-1 ] ) , 
+                    np.max( [ c[0]-size/2, 0 ] ) : np.min( [ c[0]+size/2, dim[2]-1 ] ) ]
 
     return cropstack
 
