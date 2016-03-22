@@ -48,15 +48,26 @@ def load_stack(filename):
 
 def downsizeStack( stack, scaleFactor ):
 
-    smallstack = []
-    for img in stack:
-        Nbig = img.shape[0]
-        Nsmall = img.shape[0]/scaleFactor
-        smallimg = ( img.reshape([Nsmall, Nbig/Nsmall, Nsmall, Nbig/Nsmall]).mean(3).mean(1) ).astype(np.uint16)
-        smallstack.append( smallimg )
-    smallstack = np.array(smallstack)
+	if len(imgs.shape) == 3:
+	    
+	    smallstack = []
+	    for img in stack:
+	        Nbig = img.shape[0]
+	        Nsmall = img.shape[0]/scaleFactor
+	        smallimg = ( img.reshape([Nsmall, Nbig/Nsmall, Nsmall, Nbig/Nsmall]).mean(3).mean(1) ).astype(np.uint16)
+	        smallstack.append( smallimg )
+	    smallstack = np.array(smallstack)
 
-    return smallstack
+	    return smallstack
+
+	if len(imgs.shape) == 2:
+        
+        Nbig = imgs.shape[0]
+        Nsmall = imgs.shape[0]/scaleFactor
+        smallimg = ( imgs.reshape([Nsmall, Nbig/Nsmall, Nsmall, Nbig/Nsmall]).mean(3).mean(1) ).astype(np.uint16)
+
+        return smallimg
+
 
 def crop_image( imgs, c, size ):
 
